@@ -1,0 +1,56 @@
+<%@page pageEncoding="UTF-8" isELIgnored="false" contentType="text/html; UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+
+<script>
+    $(function () {
+        //初始化表单属性
+        $("#vTable").jqGrid({
+            url: "${path}/log/logShow",  //分页查询
+            datatype: "json",
+            rowNum: 3,  //每页展示是条数
+            rowList: [3, 5, 10, 20, 30],
+            pager: '#vPager',
+            styleUI: "Bootstrap",
+            height: "auto",
+            autowidth: true,
+            viewrecords: true,  //是否展示数据总条数
+            colNames: ['ID', '日志标题',  '时间', '操作员', '结果'],
+            colModel: [
+                {name: 'id', width: 55},
+                {name: 'adminname', editable: true, width: 90},
+                {name: 'optiontime', editable: true, width: 100},
+                {name: 'options', width: 80, align: "right"},
+                {name: 'issuccess', width: 80, align: "right"},
+            ]
+        });
+    });
+
+
+</script>
+
+<%--初始化一个面板--%>
+<div class="panel panel-success">
+
+    <%--面板头--%>
+    <div class="panel panel-heading" align="center">
+        <h2>日志管理</h2>
+    </div>
+
+    <%--选项卡--%>
+    <div class="nav nav-tabs">
+        <li class="active"><a href="">日志信息</a></li>
+    </div>
+
+    <%--警告提示框--%>
+    <div id="deleteMsg" class="alert alert-danger" style="height: 50px;width: 250px;display: none" align="center">
+        <span id="showMsg"/>
+    </div>
+
+    <%--初始化表单--%>
+    <table id="vTable"/>
+
+    <%--工具栏--%>
+    <div id="vPager"/>
+
+</div>
