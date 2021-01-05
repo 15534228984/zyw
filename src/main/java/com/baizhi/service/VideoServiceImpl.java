@@ -1,6 +1,8 @@
 package com.baizhi.service;
 
+import com.baizhi.annotation.AddCache;
 import com.baizhi.annotation.AddLog;
+import com.baizhi.annotation.DelCache;
 import com.baizhi.dao.VideoMapper;
 import com.baizhi.entity.Video;
 import com.baizhi.entity.VideoExample;
@@ -31,7 +33,8 @@ public class VideoServiceImpl implements VideoService {
     @Resource
     HttpServletRequest request;
 
-    @AddLog("aaa")
+
+    @AddCache
     @Override
     public HashMap<String, Object> queryAllPage(Integer page, Integer rows) {
 
@@ -253,6 +256,7 @@ public class VideoServiceImpl implements VideoService {
         videoMapper.updateByExampleSelective(video, example);
     }
 
+    @DelCache
     @AddLog("aaa")
     @Override
     public void delete(Video video) {
@@ -280,6 +284,7 @@ public class VideoServiceImpl implements VideoService {
 
     }
 
+    @DelCache
     @AddLog("aaa")
     @Override
     public void deletes(Video video) {

@@ -1,6 +1,8 @@
 package com.baizhi.controller;
 
+import com.baizhi.dao.VideoMapper;
 import com.baizhi.entity.Video;
+import com.baizhi.entity.VideoExample;
 import com.baizhi.service.VideoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("video")
@@ -19,6 +22,8 @@ public class VideoController {
     @Resource
     VideoService videoService;
 
+    @Resource
+    VideoMapper videoMapper;
 
     @ResponseBody
     @RequestMapping("queryAllPage")
@@ -53,4 +58,14 @@ public class VideoController {
         videoService.uploadVdieosAliyun(videoPath, id, request);
     }
 
+    @ResponseBody
+    @RequestMapping("searchVdieo")
+    public List<Video>  searchVdieo(){
+        VideoExample example = new VideoExample();
+
+
+        List<Video> videos = videoMapper.selectByExample(example);
+
+        return videos;
+    }
 }

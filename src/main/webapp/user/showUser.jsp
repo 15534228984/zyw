@@ -7,17 +7,20 @@
     $(function(){
         pageInit();
     });
-    function updateStatus(id) {
-        alert(id)
-        $.ajax({
-            url: "${pageContext.request.contextPath}/user/freeze",
-            type: "post",
-            data: 'id='+id,
-            //刷新
-            success : function () {
+
+    //修改状态
+    function updateUserStatus(id,status){
+        if(status==0){
+            $.post("${path}/user/edit",{"id":id,"status":"1","oper":"edit"},function(data){
+                //刷新表单
                 $("#userTable").trigger("reloadGrid");
-            }
-        })
+            })
+        }else{
+            $.post("${path}/user/edit",{"id":id,"status":"0","oper":"edit"},function(data){
+                //刷新表单
+                $("#userTable").trigger("reloadGrid");
+            })
+        }
     }
 
     //创建表格
@@ -51,12 +54,12 @@
                 {name : 'brief',editable:true,width : 60,align : "center"},
                 {name : 'status',width : 60,align : "center",
                     formatter:function(cellvalue, options, rowObject){
-                        if(cellvalue==1){
-                          //正常  展示冻结（绿色）
-                            return "<button class='btn btn-success' onclick='updateStatus(\""+rowObject.id+"\")'>冻结</button>";
+                        if(cellvalue=="1"){
+                            //正常  展示冻结（绿色）
+                            return "<button value='"+cellvalue+"' id='"+rowObject.phone+"' class='btn btn-success' onclick='updateUserStatus(\""+rowObject.id+"\",\""+rowObject.status+"\")' >冻结</button>";
                         }else{
                             //冻结  展示解除冻结（红色）
-                            return "<button class='btn btn-danger' onclick='updateStatus(\""+rowObject.id+"\")'>解除冻结</button>";
+                            return "<button value='"+cellvalue+"' id='"+rowObject.phone+"' class='btn btn-danger' onclick='updateUserStatus(\""+rowObject.id+"\",\""+rowObject.status+"\")'>解除冻结</button>";
                         }
                     }
                 },

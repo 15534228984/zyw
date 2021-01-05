@@ -34,7 +34,7 @@ public class UserController {
              id = userService.add(user);
         }
         if(oper.equals("edit")){
-           id = userService.edit(user);
+            userService.edit(user);
         }
         if(oper.equals("del")){
             userService.del(user);

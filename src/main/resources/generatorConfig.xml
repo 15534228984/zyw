@@ -40,6 +40,6 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--生成对应表及类名-->
-        <table tableName="yx_log" domainObjectName="Log" ></table>
+        <table tableName="yx_feedback" domainObjectName="Feedback" ></table>
     </context>
 </generatorConfiguration>

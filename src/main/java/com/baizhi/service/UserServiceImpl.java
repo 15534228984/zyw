@@ -1,6 +1,8 @@
 package com.baizhi.service;
 
+import com.baizhi.annotation.AddCache;
 import com.baizhi.annotation.AddLog;
+import com.baizhi.annotation.DelCache;
 import com.baizhi.dao.UserMapper;
 import com.baizhi.entity.User;
 import com.baizhi.entity.UserExample;
@@ -27,6 +29,7 @@ public class UserServiceImpl implements UserService {
     @Resource
     UserMapper userMapper;
 
+    @AddCache
     @Override
     public HashMap<String, Object> queryUserPage(Integer page, Integer rows) {
         // Integer page, Integer rows(每页展示条数)
@@ -109,23 +112,14 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @DelCache
+    @AddLog(value = "修改用户")
     @Override
-    public String edit(User user) {
-        User user1 = userMapper.selectByPrimaryKey(user);
-        if(user.getHeadImg().length()==0){
-            user.setHeadImg(user1.getHeadImg());
-                userMapper.updateByPrimaryKeySelective(user);
-            return null;
-        }else {
-            User user2 = userMapper.selectByPrimaryKey(user);
-            //删除原来的图片
-            File file = new File("src/main/webapp/upload/cover" + user2.getHeadImg());
-            file.delete();
-            userMapper.updateByPrimaryKeySelective(user);
-        }
-        return user.getId();
+    public void edit(User user) {
+        userMapper.updateByPrimaryKeySelective(user);
     }
 
+    @DelCache
     @Override
     public void del(User user) {
         userMapper.deleteByPrimaryKey(user);
@@ -143,6 +137,8 @@ public class UserServiceImpl implements UserService {
         }
         return userMapper.selectOne(user);
     }
+
+
 
     @Override
     public HashMap<String, Object> queryUser() {

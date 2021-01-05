@@ -26,7 +26,7 @@ class YingxZywApplicationTests {
     @Autowired
     CategoryService service;
 
-
+        //测试阿里云oos
         @Test
         public void createBucket(){
             // Endpoint以杭州为例，其它Region请按实际情况填写。
@@ -54,6 +54,7 @@ class YingxZywApplicationTests {
             // 关闭OSSClient。
             ossClient.shutdown();
         }
+
         @Resource
         VideoMapper videoService;
 

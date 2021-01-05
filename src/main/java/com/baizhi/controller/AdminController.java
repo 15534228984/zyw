@@ -75,7 +75,6 @@ public class AdminController {
             id = service.add(admin);
         }
         if(oper.equals("edit")){
-            System.out.println(admin+"修改用户");
             service.edit(admin);
         }
         if(oper.equals("del")){

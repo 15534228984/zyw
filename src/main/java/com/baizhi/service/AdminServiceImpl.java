@@ -1,4 +1,6 @@
 package com.baizhi.service;
+import com.baizhi.annotation.AddCache;
+import com.baizhi.annotation.DelCache;
 import com.baizhi.dao.AdminMapper;
 import com.baizhi.entity.Admin;
 import com.baizhi.entity.AdminExample;
@@ -26,11 +28,13 @@ public class AdminServiceImpl implements AdminService {
         example.createCriteria().andUsernameEqualTo(username);
         //查询数据
         Admin admin = adminMapper.selectOneByExample(example);
+        String md5Code = Md5Utils.getMd5Code(admin.getSalt() + password + admin.getSalt());
         if (admin==null){new RuntimeException("用户名出现错误");}
-        if (admin.getPassword().equals(password)==false){new RuntimeException("密码错误");}
+        if (admin.getPassword().equals(md5Code)){new RuntimeException("密码错误");}
         return admin;
     }
 
+    @AddCache
     @Override
     public HashMap<String,Object>  queryAdminPage(Integer page, Integer rows) {
         //返回  page=当前页   rows=[User,User]数据    tolal=总页数   records=总条数
@@ -52,23 +56,29 @@ public class AdminServiceImpl implements AdminService {
         map.put("total",tolal);
         return map;
     }
-
+    @DelCache
     @Override
     public String add(Admin admin) {
         String uuid = UUIDUtil.getUUID();
         admin.setId(uuid);
         admin.setStatus("1");
-        admin.setSalt(Md5Utils.getSalt(6));
+        String salt = Md5Utils.getSalt(6);
+        admin.setSalt(salt);
+        //拼接随机盐加密
+        String md5Code = Md5Utils.getMd5Code( salt+ admin.getPassword() + salt);
+        admin.setPassword(md5Code);
         adminMapper.insertSelective(admin);
         //添加方法返回id
         return uuid;
     }
 
+    @DelCache
     @Override
     public void edit(Admin admin) {
         adminMapper.updateByPrimaryKeySelective(admin);
     }
 
+    @DelCache
     @Override
     public void del(Admin admin) {
         adminMapper.deleteByPrimaryKey(admin);

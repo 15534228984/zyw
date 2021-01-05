@@ -16,6 +16,10 @@ spring:
     multipart:
       max-file-size: 100MB  #设置单个文件最大长度
       max-request-size: 100MB  #最大请求文件的大小
+  redis:
+    host: 192.168.11.129
+    port: 7070
+    database: 3
   #数据库连接池
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource

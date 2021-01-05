@@ -1,5 +1,7 @@
 package com.baizhi.service;
+import com.baizhi.annotation.AddCache;
 import com.baizhi.annotation.AddLog;
+import com.baizhi.annotation.DelCache;
 import com.baizhi.dao.CategoryMapper;
 import com.baizhi.entity.Category;
 import com.baizhi.entity.CategoryExample;
@@ -18,6 +20,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Resource
     CategoryMapper categoryMapper;
 
+    @AddCache
     @Override
     public HashMap<String,Object> selectAll(Integer page, Integer rows) {
         //返回  page=当前页   rows=[User,User]数据    tolal=总页数   records=总条数
@@ -64,6 +67,7 @@ public class CategoryServiceImpl implements CategoryService {
         return map;
     }
 
+    @DelCache
     @AddLog("aaa")
     @Override
     public String add(Category category,String rowId) {
@@ -81,6 +85,7 @@ public class CategoryServiceImpl implements CategoryService {
         return null;
     }
 
+    @DelCache
     @AddLog("aaa")
     @Override
     public String edit(Category category) {
@@ -88,6 +93,7 @@ public class CategoryServiceImpl implements CategoryService {
         return null;
     }
 
+    @DelCache
     @AddLog("aaa")
     @Override
     public String del(Category category,String rowId) {

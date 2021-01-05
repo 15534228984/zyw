@@ -45,10 +45,10 @@
                     formatter:function(cellvalue, options, rowObject){
                         if(cellvalue==1){
                             //正常  展示冻结（绿色）
-                            return "<button class='btn btn-success' id='relieve' onclick='updateStatus(\""+rowObject.id+"\")'>冻结</button>";
+                            return "<button class='btn btn-success' onclick='updateStatus(\""+rowObject.id+"\",\""+rowObject.status+"\")' >冻结</button>";
                         }else{
                             //冻结  展示解除冻结（红色）
-                            return "<button class='btn btn-danger' id='relieve' onclick='updateStatus(\""+rowObject.id+"\")'>解除冻结</button>";
+                            return "<button class='btn btn-danger' onclick='updateStatus(\""+rowObject.id+"\",\""+rowObject.status+"\")'>解除冻结</button>";
                         }
                     }
                 },
@@ -68,10 +68,25 @@
                 return "hello";
                 }
             }, //添加之后的额外操作
-            {}  //删除之后的额外操作
+            {
+
+            }  //删除之后的额外操作
         );
     }
 
+    //修改状态
+    function updateStatus(id,status){
+        alert(status)
+        if(status==1){
+            $.post("${path}/admin/edit",{"id":id,"status":"0","oper":"edit"},function(data){
+                $("#adminTable").trigger("reloadGrid");
+            })
+        }else{
+            $.post("${path}/admin/edit",{"id":id,"status":"1","oper":"edit"},function(data){
+                $("#adminTable").trigger("reloadGrid");
+            })
+        }
+    }
 </script>
 
 <%--创建一个面板--%>

@@ -1,5 +1,7 @@
 package com.baizhi.service;
 
+import com.baizhi.annotation.AddCache;
+import com.baizhi.annotation.DelCache;
 import com.baizhi.dao.LogMapper;
 import com.baizhi.entity.Log;
 import com.baizhi.entity.UserExample;
@@ -19,6 +21,8 @@ public class LogServiceImpl implements LogService {
 
     @Resource
     LogMapper logMapper;
+
+    @AddCache
     @Override
     public HashMap<String, Object> show(Integer page, Integer rows) {
         //返回  page=当前页   rows=[User,User]数据    tolal=总页数   records=总条数

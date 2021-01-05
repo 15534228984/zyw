@@ -9,13 +9,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
 @Table(name = "yx_log")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Log {
+public class Log implements Serializable {
     @Id
     private String id;
 

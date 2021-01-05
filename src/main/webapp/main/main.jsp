@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>持明法州后台管理系统</title>
+    <title>应学后台管理系统</title>
     <link rel="icon" href="${path}/bootstrap/img/arrow-up.png" type="image/x-icon">
     <link rel="stylesheet" href="${path}/bootstrap/css/bootstrap.css">
 
@@ -109,6 +109,10 @@
                                 <button class="btn btn-warning">
                                     <a href="javascript:$('#mainId').load('${path}/video/showVideo.jsp')">视频信息</a>
                                 </button>
+                                <br><br>
+                                <button class="btn btn-info">
+                                    <a href="javascript:$('#mainId').load('${path}/video/searchVideo.jsp')">视频检索</a>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -166,7 +170,9 @@
                         </div>
                         <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
                             <div class="panel-body">
+                                <a  href="javascript:$('#mainId').load('${path}/feedback/feedback.jsp')">
                                 <button class="btn btn-info">反馈信息</button>
+                                </a>
                             </div>
                         </div>
                     </div>

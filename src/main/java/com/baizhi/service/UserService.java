@@ -17,12 +17,12 @@ public interface UserService {
     //文件上传
     void uploadUserCover(MultipartFile headImg, String id, HttpServletRequest request);
     //更新
-    String edit(User user);
+    void edit(User user);
     //删除
     void del(User user);
     //查一个
     User select(User user);
-    //查月份
+    //查用户注册月份
     HashMap<String, Object> queryUser();
     //查询用户分布
     List<UserOOP> queryByUserPPo();
